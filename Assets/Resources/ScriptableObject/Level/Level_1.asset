@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d549cab865f6a2439e9eb9c5db54a6b, type: 3}
+  m_Name: Level_1
+  m_EditorClassIdentifier: 
+  uid: 1336a3cfbee73e046b5582f4daaa1596
+  prefab: {fileID: 6667457288466378779, guid: 0cda2fbc7ce779c49a48a04705c3d6ee, type: 3}
+  previousPrefab: {fileID: 6667457288466378779, guid: 0cda2fbc7ce779c49a48a04705c3d6ee, type: 3}
+  lowerBound: {x: 1, y: 2}
+  upperBound: {x: 16, y: 10}
+  spawnPositionArray:
+  - {x: 2, y: 6}
+  targetPositionArray:
+  - {x: 15, y: 6}
+  setupPositionArray:
+  - {x: 4, y: 6}
+  - {x: 4, y: 7}
+  - {x: 4, y: 8}
+  - {x: 6, y: 4}
+  - {x: 6, y: 5}
+  - {x: 6, y: 6}
+  - {x: 6, y: 7}
+  - {x: 8, y: 4}
+  - {x: 8, y: 5}
+  - {x: 8, y: 6}
+  - {x: 8, y: 7}
+  - {x: 10, y: 5}
+  - {x: 10, y: 6}
