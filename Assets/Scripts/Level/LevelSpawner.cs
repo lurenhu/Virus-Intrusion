@@ -17,6 +17,28 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
         levelTemplateList = GameResources.Instance.LevelList;
     }
 
+    /// <summary>
+    /// 获取对应关卡的中心世界坐标
+    /// </summary>
+    public Vector3 GetLevelCenterPositionInWorld(string levelName)
+    {
+        Vector3 Position = new Vector3();
+        foreach (KeyValuePair<string,Level> keyValue in levelDictionary)
+        {
+            if (keyValue.Key == levelName)
+            {
+                Grid grid =  keyValue.Value.prefab.transform.GetComponent<Grid>();
+                Vector3Int CenterGridPosition = (Vector3Int)(keyValue.Value.lowerBound + keyValue.Value.upperBound)/2;
+                Position = grid.CellToWorld(CenterGridPosition);
+            }
+        }
+        Debug.Log("Level Center Position In World: " + Position);
+        return Position;
+    }
+
+    /// <summary>
+    /// 生成对应的关卡对象
+    /// </summary>
     public void GenerateLevel(string levelName)
     {
         LoadLevelTemplateDictionary();
@@ -31,20 +53,7 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
         }
     }
 
-    private void InstantiateLevelGameObject(Level level)
-    {
-        Grid grid = level.prefab.GetComponent<Grid>();
-
-        Vector3Int CenterPointOffset = (Vector3Int)(level.lowerBound + level.upperBound)/2;
-        Vector3 levelPosition = -(level.prefab.transform.position + grid.CellToWorld(CenterPointOffset));
-
-        GameObject levelGameObject = Instantiate(level.prefab, levelPosition, Quaternion.identity, transform);
-
-        InstantiateLevel instantiateLevel = levelGameObject.GetComponent<InstantiateLevel>();
-        instantiateLevel.Initialize(levelGameObject);
-        instantiateLevel.level = level;
-        level.instantiateLevel = instantiateLevel;
-    }
+    
 
     /// <summary>
     /// 将LevelTemplateSO录入字典
@@ -66,40 +75,58 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
     }
 
     /// <summary>
-    /// 根据levelTemplate创建Level
-    /// </summary>
-    private Level CreateLevelFormLevelTemplate(LevelTemplateSO levelTemplate)
-    {
-        Level levelToCreate = new Level();
-
-        levelToCreate.templateId = levelTemplate.uid;
-        levelToCreate.prefab = levelTemplate.prefab;
-        levelToCreate.lowerBound = levelTemplate.lowerBound;
-        levelToCreate.upperBound = levelTemplate.upperBound;
-        levelToCreate.setupPositionArray = levelTemplate.setupPositionArray;
-        levelToCreate.spawnPositionArray = levelTemplate.spawnPositionArray;
-        levelToCreate.targetPositionArray = levelTemplate.targetPositionArray;
-
-        return levelToCreate;
-    }
-
-    /// <summary>
     /// 将levelDictionary填充
     /// </summary>
     private void LoadLevelDictionary()
     {
         foreach (KeyValuePair<string,LevelTemplateSO> valuePair in levelTemplateDictionary)
         {
-            Level level = valuePair.Value.prefab.GetComponent<InstantiateLevel>().level;
             string LevelName = valuePair.Value.prefab.name;
             
             if (!levelDictionary.ContainsKey(LevelName))
             {
                 Level levelToCreate = CreateLevelFormLevelTemplate(valuePair.Value);
-
                 levelToCreate.name = LevelName;
+
                 levelDictionary.Add(levelToCreate.name,levelToCreate);
             }
         }
     }
+
+    /// <summary>
+    /// 根据levelTemplate创建Level
+    /// </summary>
+    private Level CreateLevelFormLevelTemplate(LevelTemplateSO levelTemplate)
+    {
+        Level levelToCreate = new Level
+        {
+            templateId = levelTemplate.uid,
+            prefab = levelTemplate.prefab,
+            lowerBound = levelTemplate.lowerBound,
+            upperBound = levelTemplate.upperBound,
+            setupPositionArray = levelTemplate.setupPositionArray,
+            spawnPositionArray = levelTemplate.spawnPositionArray,
+            targetPositionArray = levelTemplate.targetPositionArray
+        };
+
+        return levelToCreate;
+    }
+
+    /// <summary>
+    /// 将关卡level实例化
+    /// </summary>
+    private void InstantiateLevelGameObject(Level level)
+    {
+        Grid grid = level.prefab.GetComponent<Grid>();
+
+        GameObject levelGameObject = Instantiate(level.prefab, transform);
+
+        InstantiateLevel instantiateLevel = levelGameObject.GetComponent<InstantiateLevel>();
+        instantiateLevel.Initialize(levelGameObject);
+        instantiateLevel.level = level;
+        level.instantiateLevel = instantiateLevel;
+
+        StaticEventHandler.CallLevelSpawnEvent(level);
+    }
+    
 }

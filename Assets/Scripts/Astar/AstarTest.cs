@@ -1,27 +1,71 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class AStarTest : MonoBehaviour
+public class AstarTest : MonoBehaviour
 {
-    private LevelTemplateSO level;
-    private Grid grid;
-    private Tilemap frontTilemap;
-    private Tilemap pathTilemap;
-    private Vector3Int startGridPosition;
-    private Vector3Int endGridPosition;
-    private TileBase startPathTile;
-    private TileBase finishPathTile;
+    public InstantiateLevel instantiateLevel;
+    public Grid grid;
+    public Tilemap frontTilemap;
+    public Tilemap pathTilemap;
+    public Vector3Int startGridPosition;
+    public Vector3Int endGridPosition;
+    public TileBase startPathTile;
+    public TileBase finishPathTile;
 
     private Vector3Int noValue = new Vector3Int(9999, 9999, 9999);
     private Stack<Vector3> pathStack;
 
-    
+    private void Awake() {
+        startPathTile = GameResources.Instance.enemyWalkableTile;
+        finishPathTile = GameResources.Instance.enemyUnWalkableTile;
+    }
+
+    private void OnEnable() {
+        StaticEventHandler.OnLevelSpawn += StaticEventHandler_OnLevelSpawn;
+    }
+
+    private void OnDisable() {
+        StaticEventHandler.OnLevelSpawn -= StaticEventHandler_OnLevelSpawn;
+    }
+
+    public void StaticEventHandler_OnLevelSpawn(LevelSpawnEventArgs levelSpawnEventArgs)
+    {
+        instantiateLevel = levelSpawnEventArgs.level.instantiateLevel;
+        grid = instantiateLevel.transform.GetComponent<Grid>();
+        frontTilemap = instantiateLevel.transform.Find("Tilemap_Front").GetComponent<Tilemap>();
+        pathTilemap = null;
+        startGridPosition = noValue;
+        endGridPosition = noValue;
+
+        SetPathTilemap();
+    }
+
+    private void SetPathTilemap()
+    {
+        Transform tilemapCloneTransform = instantiateLevel.transform.Find("Tilemap_Front(Clone)");
+
+        // If the front tilemap hasn't been cloned then clone it
+        if (tilemapCloneTransform == null)
+        {
+            pathTilemap = Instantiate(frontTilemap, grid.transform);
+            pathTilemap.GetComponent<TilemapRenderer>().sortingOrder = 2;
+            pathTilemap.GetComponent<TilemapRenderer>().material = GameResources.Instance.LitMaterial;
+            pathTilemap.gameObject.tag = "Untagged";
+        }
+        // else use it
+        else
+        {
+            pathTilemap = instantiateLevel.transform.Find("Tilemap_Front(Clone)").GetComponent<Tilemap>();
+            pathTilemap.ClearAllTiles();
+        } 
+    }
 
     // Update is called once per frame
     private void Update()
     {
-        if (level == null || startPathTile == null || finishPathTile == null || grid == null || pathTilemap == null) return;
+        if (instantiateLevel == null || startPathTile == null || finishPathTile == null || grid == null || pathTilemap == null) return;
 
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -50,6 +94,7 @@ public class AStarTest : MonoBehaviour
         if (startGridPosition == noValue)
         {
             startGridPosition = grid.WorldToCell(HelperUtilities.GetMouseWorldPosition());
+            Debug.Log("startGridPosition is " + startGridPosition);
 
             if (!IsPositionWithinBounds(startGridPosition))
             {
@@ -75,6 +120,7 @@ public class AStarTest : MonoBehaviour
         if (endGridPosition == noValue)
         {
             endGridPosition = grid.WorldToCell(HelperUtilities.GetMouseWorldPosition());
+            Debug.Log("endGridPosition is " + endGridPosition);
 
             if (!IsPositionWithinBounds(endGridPosition))
             {
@@ -98,8 +144,8 @@ public class AStarTest : MonoBehaviour
     private bool IsPositionWithinBounds(Vector3Int position)
     {
         // If  position is beyond grid then return false
-        if (position.x < level.lowerBound.x || position.x > level.upperBound.x
-            || position.y < level.lowerBound.y || position.y > level.upperBound.y)
+        if (position.x < instantiateLevel.level.lowerBound.x || position.x > instantiateLevel.level.upperBound.x
+            || position.y < instantiateLevel.level.lowerBound.y || position.y > instantiateLevel.level.upperBound.y)
         {
             return false;
         }
@@ -137,7 +183,7 @@ public class AStarTest : MonoBehaviour
     {
         if (startGridPosition == noValue || endGridPosition == noValue) return;
 
-        pathStack = Astar.BuildPath(level, startGridPosition, endGridPosition);
+        pathStack = Astar.BuildPath(instantiateLevel.level, startGridPosition, endGridPosition);
 
         if (pathStack == null) return;
 

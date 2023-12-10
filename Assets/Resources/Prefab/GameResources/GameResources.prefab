@@ -46,5 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelList:
   - {fileID: 11400000, guid: b68e96970d7177a419aaa086c72b6019, type: 2}
+  - {fileID: 11400000, guid: e13bee0e2ebb1694b8c902b57ac3e096, type: 2}
   enemyList:
   - {fileID: 11400000, guid: cbe24e3e56f04cd40a57c6e719264891, type: 2}
+  enemyUnWalkableTile: {fileID: 11400000, guid: a5153ea64df5bd8428f270ebde6ea389, type: 2}
+  enemyWalkableTile: {fileID: 11400000, guid: 72fa604b1e4b70042845751de1eaeebc, type: 2}
+  LitMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}

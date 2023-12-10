@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameResources : MonoBehaviour
 {
@@ -24,4 +25,13 @@ public class GameResources : MonoBehaviour
     [Space(10)]
     [Header("ENEMY RESOURCE")]
     public List<EnemySO> enemyList;
+
+    [Space(10)]
+    [Header("TILEBASE")]
+    public TileBase enemyUnWalkableTile;
+    public TileBase enemyWalkableTile;
+
+    [Space(10)]
+    [Header("MATERIAL")]
+    public Material LitMaterial;
 }

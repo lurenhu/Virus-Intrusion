@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class Astar
 {
-    public static Stack<Vector3> BuildPath(LevelTemplateSO level, Vector3Int startGridPosition, Vector3Int endGridPosition)
+    public static Stack<Vector3> BuildPath(Level level, Vector3Int startGridPosition, Vector3Int endGridPosition)
     {
         startGridPosition -= (Vector3Int)level.lowerBound;
         endGridPosition -= (Vector3Int)level.lowerBound;
@@ -18,7 +18,7 @@ public static class Astar
         Node startNode = gridNodes.GetGridNode(startGridPosition.x, startGridPosition.y);
         Node targetNode = gridNodes.GetGridNode(endGridPosition.x, endGridPosition.y);
         //找到目标节点
-        Node endPathNode = FindShortestPath(startNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, level);
+        Node endPathNode = FindShortestPath(startNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, level.instantiateLevel);
         
         if (endPathNode != null)
         {
@@ -28,7 +28,7 @@ public static class Astar
         return null;
     }
 
-    private static Stack<Vector3> CreatePathStack(Node targetNode, LevelTemplateSO level)
+    private static Stack<Vector3> CreatePathStack(Node targetNode, Level level)
     {
         Stack<Vector3> movementPathStack = new Stack<Vector3>();
 
@@ -37,12 +37,13 @@ public static class Astar
         // 获取每个网格的中间偏移
         Vector3 cellMidPoint = level.prefab.transform.GetComponent<Grid>().cellSize * 0.5f;
         cellMidPoint.z = 0f;
+        Debug.Log("cellMidPoint is" + cellMidPoint);
 
         while (nextNode != null)
         {
+            Vector3Int gridPosition = new Vector3Int(nextNode.gridPosition.x + level.lowerBound.x, nextNode.gridPosition.y + level.lowerBound.y, 0);
             // 将网格坐标转换为世界坐标
-            Vector3 worldPosition = level.prefab.transform.GetComponent<Grid>().CellToWorld(new Vector3Int(nextNode.gridPosition.x + level.lowerBound.x, nextNode.gridPosition.y + level.upperBound.y, 0));
-
+            Vector3 worldPosition = level.prefab.transform.GetComponent<Grid>().CellToWorld(gridPosition);
             // 将世界坐标加上偏移
             worldPosition += cellMidPoint;
             //将该世界坐标压栈
@@ -54,7 +55,7 @@ public static class Astar
         return movementPathStack;
     }
 
-    private static Node FindShortestPath(Node startNode, Node targetNode, GridNode gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, LevelTemplateSO level)
+    private static Node FindShortestPath(Node startNode, Node targetNode, GridNode gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiateLevel instantiateLevel)
     {
         openNodeList.Add(startNode);
 
@@ -78,15 +79,16 @@ public static class Astar
             closedNodeHashSet.Add(currentNode);
 
             // 评估当前节点中所有邻居节点的fcost值
-            EvaluateCurrentNodeNeighbours(currentNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, level);
+            EvaluateCurrentNodeNeighbours(currentNode, targetNode, gridNodes, openNodeList, closedNodeHashSet, instantiateLevel);
         }
 
         return null;
     }
 
-    private static void EvaluateCurrentNodeNeighbours(Node currentNode, Node targetNode, GridNode gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, LevelTemplateSO level)
+    private static void EvaluateCurrentNodeNeighbours(Node currentNode, Node targetNode, GridNode gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiateLevel instantiateLevel)
     {
         Vector2Int currentNodeGridPosition = currentNode.gridPosition;
+        Debug.Log("currentNodeGridPosition is " + currentNodeGridPosition);
 
         Node validNeighbourNode;
 
@@ -99,15 +101,13 @@ public static class Astar
                 if (i == 0 && j == 0)
                     continue;
                 //评估邻居节点
-                validNeighbourNode = GetValidNodeNeighbour(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, level);
+                validNeighbourNode = GetValidNodeNeighbour(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, instantiateLevel);
 
                 //当该邻居节点不为空
                 if (validNeighbourNode != null)
                 {
                     // 计算gCost给该节点
-                    int newCostToNeighbour;
-
-                    newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, validNeighbourNode);//计算该节点的gcost
+                    int newCostToNeighbour = currentNode.gCost + GetDistance(currentNode, validNeighbourNode);
 
                     bool isValidNeighbourNodeInOpenList = openNodeList.Contains(validNeighbourNode);//判断在openNodeList中是否包含该邻居节点
 
@@ -140,11 +140,11 @@ public static class Astar
         return 14 * dstX + 10 * (dstY - dstX);
     }
 
-    private static Node GetValidNodeNeighbour(int neighbourNodeXPosition, int neighbourNodeYPosition, GridNode gridNodes, HashSet<Node> closedNodeHashSet, LevelTemplateSO level)
+    private static Node GetValidNodeNeighbour(int neighbourNodeXPosition, int neighbourNodeYPosition, GridNode gridNodes, HashSet<Node> closedNodeHashSet, InstantiateLevel instantiateLevel)
     {
         // 如果该邻居节点超出了网格则返回
-        if (neighbourNodeXPosition >= level.upperBound.x - level.lowerBound.x || neighbourNodeXPosition < 0 || 
-        neighbourNodeYPosition >= level.upperBound.y - level.lowerBound.y || neighbourNodeYPosition < 0)
+        if (neighbourNodeXPosition >= instantiateLevel.level.upperBound.x - instantiateLevel.level.lowerBound.x || neighbourNodeXPosition < 0 || 
+        neighbourNodeYPosition >= instantiateLevel.level.upperBound.y - instantiateLevel.level.lowerBound.y || neighbourNodeYPosition < 0)
         {
             return null;
         }
