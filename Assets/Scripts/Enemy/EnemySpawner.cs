@@ -1,22 +1,75 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
 {
-    private void Start() {
-        EnemySO enemy = GameResources.Instance.enemyList[0];
+    private List<LevelEnemyGenerateRule> levelEnemyGenerateRule;
+    private Grid grid;
+    private int enemyCount;
+    private GameObject enemyPrefab;
 
-        LevelTemplateSO level = GameResources.Instance.LevelList[0];
+    private void OnEnable() {
+        StaticEventHandler.OnLevelSpawn += StaticEventHandler_OnLevelSpawn;
+    }
 
-        Grid grid = level.prefab.transform.GetComponent<Grid>();
+    private void OnDisable() {
+        StaticEventHandler.OnLevelSpawn -= StaticEventHandler_OnLevelSpawn;
+    }
 
-        Vector3 cellPosition = grid.CellToWorld((Vector3Int)level.spawnPositionArray[0]);
-        Vector3Int position = new Vector3Int(-(level.upperBound.x + level.lowerBound.x)/2,-(level.upperBound.y + level.lowerBound.y)/2,0);
-        Vector3 offset = new Vector3(0.5f,0.3f);
-        Vector3 targetPosition = cellPosition + position + offset;
+    private void StaticEventHandler_OnLevelSpawn(LevelSpawnEventArgs levelSpawnEventArgs)
+    {
+        Level level = levelSpawnEventArgs.level;
 
-        GameObject enemyInWorld = Instantiate(enemy.prefab,targetPosition,Quaternion.identity,transform);
+        this.grid = level.instantiateLevel.grid;
+        this.levelEnemyGenerateRule = level.levelEnemyGenerateRule;
+
+        CreateEnemyByLevel(level);
+    }
+
+    /// <summary>
+    /// 通过所在关卡创建敌人
+    /// </summary>
+    private void CreateEnemyByLevel(Level level)
+    {
+        foreach (LevelEnemyGenerateRule generateRule in levelEnemyGenerateRule)
+        {
+            EnemySO enemySO = generateRule.enemySO;
+
+            enemyCount = generateRule.enemyCount;
+            enemyPrefab = enemySO.prefab;
+            
+            StartCoroutine(InitializeEnemy(level,enemyCount,enemyPrefab,enemySO));
+        }
+    }
+
+
+    /// <summary>
+    /// 将敌人实力化至世界坐标
+    /// </summary>
+    private IEnumerator InitializeEnemy(Level level, int enemyCount, GameObject enemyPrefab,EnemySO enemySO)
+    {
+        yield return new WaitForSeconds(4f);
+
+        Sprite enemySprite = enemyPrefab.transform.GetComponent<SpriteRenderer>().sprite;
+        Vector3 offset = enemySprite.pivot/new Vector2(enemySprite.rect.width,enemySprite.rect.height);
+
+        foreach (Vector2Int spawnPoint in level.spawnPositionArray)
+        {
+            Vector3 spawnPosition = grid.CellToWorld((Vector3Int)spawnPoint) + offset;
+        
+            for (int i = 0; i < enemyCount; i++)
+            {
+                GameObject enemyGameObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity,transform);
+
+                Enemy enemyScript = enemyGameObject.GetComponent<Enemy>();
+                enemyScript.InitializeEnemy(enemySO,level);
+                
+                yield return new WaitForSeconds(2f);
+            }
+        }
     }
 }

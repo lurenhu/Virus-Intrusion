@@ -7,13 +7,13 @@ using UnityEngine.Tilemaps;
 
 public class InstantiateLevel : MonoBehaviour
 {
-    public Level level;
-    public Grid grid;
-    public Tilemap Background_Tilemap;
-    public Tilemap Ground_Tilemap;
-    public Tilemap Front_Tilemap;
-    public Tilemap Decoration_Tilemap;
-    public Tilemap Collision_Tilemap;
+    [HideInInspector] public Level level;
+    [HideInInspector] public Grid grid;
+    [HideInInspector] public Tilemap Background_Tilemap;
+    [HideInInspector] public Tilemap Ground_Tilemap;
+    [HideInInspector] public Tilemap Front_Tilemap;
+    [HideInInspector] public Tilemap Decoration_Tilemap;
+    [HideInInspector] public Tilemap Collision_Tilemap;
 
     public void Initialize(GameObject levelGameObject)
     {

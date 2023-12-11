@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8748409699757995840}
   - component: {fileID: 905987357272056526}
   m_Layer: 8
-  m_Name: EnemyTemplate
+  m_Name: Enemy_Germ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

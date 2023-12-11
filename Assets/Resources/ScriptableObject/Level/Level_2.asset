@@ -17,6 +17,10 @@ MonoBehaviour:
   previousPrefab: {fileID: 6667457288466378779, guid: 0abd9f16d0f9a9d4cb631018ac7040bc, type: 3}
   lowerBound: {x: -9, y: -2}
   upperBound: {x: 8, y: 7}
-  spawnPositionArray: []
+  levelEnemyGenerateRule:
+  - enemySO: {fileID: 11400000, guid: cbe24e3e56f04cd40a57c6e719264891, type: 2}
+    enemyCount: 5
+  spawnPositionArray:
+  - {x: -7, y: 0}
   targetPositionArray: []
   setupPositionArray: []

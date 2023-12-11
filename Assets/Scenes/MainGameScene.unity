@@ -288,6 +288,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40110c84299096479a686e5e547d30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instantiateLevel: {fileID: 0}
+  grid: {fileID: 0}
+  frontTilemap: {fileID: 0}
+  pathTilemap: {fileID: 0}
+  startGridPosition: {x: 0, y: 0, z: 0}
+  endGridPosition: {x: 0, y: 0, z: 0}
+  startPathTile: {fileID: 0}
+  finishPathTile: {fileID: 0}
 --- !u!4 &203170587
 Transform:
   m_ObjectHideFlags: 0

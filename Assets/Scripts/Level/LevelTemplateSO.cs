@@ -1,20 +1,28 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level_",menuName = "ScriptableObjects/Level_")]
 public class LevelTemplateSO : ScriptableObject
 {
+    [HideInInspector]public string uid;
 
     [Space(10)]
     [Header("LEVEL PROPERTY")]
-    [HideInInspector]public string uid;
     public GameObject prefab;//关卡预制体
     [HideInInspector]public GameObject previousPrefab;//确保生成了uid
     public Vector2Int lowerBound;//下界
     public Vector2Int upperBound;//上界
+
+    [Space(10)]
+    [Header("ENEMY GENERATE IN LEVEL")]
+    public List<LevelEnemyGenerateRule> levelEnemyGenerateRule;//怪物生成规律
     public Vector2Int[] spawnPositionArray;//怪物出生点
     public Vector2Int[] targetPositionArray;//怪物目标点
     public Vector2Int[] setupPositionArray;//可部署点
+
+    
+
 
 
 
@@ -28,4 +36,11 @@ public class LevelTemplateSO : ScriptableObject
         }
     }    
 #endif
+}
+
+[System.Serializable]
+public class LevelEnemyGenerateRule
+{
+    public EnemySO enemySO;//敌人类型
+    public int enemyCount;//敌人数量
 }

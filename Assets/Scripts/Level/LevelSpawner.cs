@@ -108,7 +108,7 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
             spawnPositionArray = levelTemplate.spawnPositionArray,
             targetPositionArray = levelTemplate.targetPositionArray
         };
-
+        levelToCreate.levelEnemyGenerateRule = levelTemplate.levelEnemyGenerateRule;        
         return levelToCreate;
     }
 
