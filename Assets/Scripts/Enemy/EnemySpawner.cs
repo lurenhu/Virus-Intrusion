@@ -42,7 +42,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
             enemyCount = generateRule.enemyCount;
             enemyPrefab = enemySO.prefab;
             
-            StartCoroutine(InitializeEnemy(level,enemyCount,enemyPrefab,enemySO));
+            StartCoroutine(InitializeEnemy(level,enemyCount,enemyPrefab,enemySO,generateRule.enemySpawnInterval,generateRule.beforeEnemySpawnTime));
         }
     }
 
@@ -50,9 +50,9 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
     /// <summary>
     /// 将敌人实力化至世界坐标
     /// </summary>
-    private IEnumerator InitializeEnemy(Level level, int enemyCount, GameObject enemyPrefab,EnemySO enemySO)
+    private IEnumerator InitializeEnemy(Level level, int enemyCount, GameObject enemyPrefab,EnemySO enemySO, float enemySpawnInterval, float beforeEnemySpawnTime)
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(beforeEnemySpawnTime);
 
         Sprite enemySprite = enemyPrefab.transform.GetComponent<SpriteRenderer>().sprite;
         Vector3 offset = enemySprite.pivot/new Vector2(enemySprite.rect.width,enemySprite.rect.height);
@@ -68,7 +68,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
                 Enemy enemyScript = enemyGameObject.GetComponent<Enemy>();
                 enemyScript.InitializeEnemy(enemySO,level);
                 
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(enemySpawnInterval);
             }
         }
     }

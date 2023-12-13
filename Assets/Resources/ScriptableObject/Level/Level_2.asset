@@ -22,5 +22,6 @@ MonoBehaviour:
     enemyCount: 5
   spawnPositionArray:
   - {x: -7, y: 0}
-  targetPositionArray: []
+  targetPositionArray:
+  - {x: 5, y: 5}
   setupPositionArray: []

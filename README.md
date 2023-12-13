@@ -11,13 +11,13 @@
 
 - 该模块的程序设计思路如图
 
-![](/Image_Markdown/关卡程序设计思路图.PNG)
+![关卡生成思路](/Image_Markdown/关卡生成思路.png)
 
 ## AStar算法实现
 
 - 该模块的程序设计思路如图
 
-![](/Image_Markdown/AStar算法实现.png)
+![AStar算法实现思路](/Image_Markdown/AStar算法实现思路.png)
 
 - 这里总结AStar寻路算法的流程
 1. 给定起点坐标与终点坐标，并定义gCost，hCost与fCost。
@@ -30,8 +30,12 @@
 5. 返回的当前节点的所有父节点构成一条路径，即为最短路径。
 
 
-## 敌人生成逻辑
+## 敌人逻辑
 
-- 该模块的程序设计思路如图
+- 敌人生成逻辑
 
-![](/Image_Markdown/敌人生成程序设计思路图.png)
+![敌人生成思路](/Image_Markdown/敌人生成思路.png)
+
+- 敌人移动逻辑
+
+![敌人移动思路](/Image_Markdown/敌人移动思路.png)

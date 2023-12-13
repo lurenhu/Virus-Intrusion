@@ -8,19 +8,29 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 {
     public Transform Camera;
 
-    public GameObject test;
+    private Level currentLevel;
+
+
     protected override void Awake() {
         base.Awake();
         Camera = GameObject.FindWithTag("MainCamera").transform;
     }
 
     private void Start() {
-        LevelSpawner.Instance.GenerateLevel("Tilemap_Level2");
-        Camera.position = LevelSpawner.Instance.GetLevelCenterPositionInWorld("Tilemap_Level2");
+        currentLevel = LevelSpawner.Instance.GenerateLevel("Tilemap_Level1");
+        Camera.position = LevelSpawner.Instance.GetLevelCenterPositionInWorld("Tilemap_Level1");
     }
 
     private void Update() {
         
+    }
+
+    /// <summary>
+    /// 获取当前生成的关卡
+    /// </summary>
+    public Level GetCurrentLevel() 
+    {
+        return currentLevel;
     }
 
 

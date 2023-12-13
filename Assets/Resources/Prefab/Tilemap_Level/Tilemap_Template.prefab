@@ -62,6 +62,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d16f3f2dd0b4446867e5db660d566a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level:
+    name: 
+    templateId: 
+    prefab: {fileID: 0}
+    lowerBound: {x: 0, y: 0}
+    upperBound: {x: 0, y: 0}
+    levelEnemyGenerateRule: []
+    spawnPositionArray: []
+    targetPositionArray: []
+    setupPositionArray: []
+    instantiateLevel: {fileID: 0}
   grid: {fileID: 0}
   Background_Tilemap: {fileID: 0}
   Ground_Tilemap: {fileID: 0}
@@ -701,7 +712,7 @@ GameObject:
   - component: {fileID: 6667457290135408561}
   m_Layer: 0
   m_Name: Tilemap_BackGround
-  m_TagString: Tilemap_BackGroudn
+  m_TagString: Tilemap_BackGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

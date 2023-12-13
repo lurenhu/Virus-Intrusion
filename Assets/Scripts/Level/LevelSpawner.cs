@@ -32,6 +32,7 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
                 Position = grid.CellToWorld(CenterGridPosition);
             }
         }
+        Position.z = -10;
         Debug.Log("Level Center Position In World: " + Position);
         return Position;
     }
@@ -39,8 +40,10 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
     /// <summary>
     /// 生成对应的关卡对象
     /// </summary>
-    public void GenerateLevel(string levelName)
+    public Level GenerateLevel(string levelName)
     {
+        Level level = new Level();
+
         LoadLevelTemplateDictionary();
         LoadLevelDictionary();
 
@@ -48,9 +51,11 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
         {
             if (keyValue.Key == levelName)
             {
-                InstantiateLevelGameObject(keyValue.Value);
+                level = InstantiateLevelGameObject(keyValue.Value);
             }
         }
+
+        return level;
     }
 
     
@@ -106,27 +111,29 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
             upperBound = levelTemplate.upperBound,
             setupPositionArray = levelTemplate.setupPositionArray,
             spawnPositionArray = levelTemplate.spawnPositionArray,
-            targetPositionArray = levelTemplate.targetPositionArray
+            targetPositionArray = levelTemplate.targetPositionArray,
+            levelEnemyGenerateRule = levelTemplate.levelEnemyGenerateRule
         };
-        levelToCreate.levelEnemyGenerateRule = levelTemplate.levelEnemyGenerateRule;        
         return levelToCreate;
     }
 
     /// <summary>
     /// 将关卡level实例化
     /// </summary>
-    private void InstantiateLevelGameObject(Level level)
+    private Level InstantiateLevelGameObject(Level level)
     {
         Grid grid = level.prefab.GetComponent<Grid>();
 
         GameObject levelGameObject = Instantiate(level.prefab, transform);
 
         InstantiateLevel instantiateLevel = levelGameObject.GetComponent<InstantiateLevel>();
-        instantiateLevel.Initialize(levelGameObject);
         instantiateLevel.level = level;
+        instantiateLevel.Initialize(levelGameObject);
         level.instantiateLevel = instantiateLevel;
 
         StaticEventHandler.CallLevelSpawnEvent(level);
+
+        return level;
     }
     
 }

@@ -37,7 +37,6 @@ public static class Astar
         // 获取每个网格的中间偏移
         Vector3 cellMidPoint = level.prefab.transform.GetComponent<Grid>().cellSize * 0.5f;
         cellMidPoint.z = 0f;
-        Debug.Log("cellMidPoint is" + cellMidPoint);
 
         while (nextNode != null)
         {
@@ -88,7 +87,6 @@ public static class Astar
     private static void EvaluateCurrentNodeNeighbours(Node currentNode, Node targetNode, GridNode gridNodes, List<Node> openNodeList, HashSet<Node> closedNodeHashSet, InstantiateLevel instantiateLevel)
     {
         Vector2Int currentNodeGridPosition = currentNode.gridPosition;
-        Debug.Log("currentNodeGridPosition is " + currentNodeGridPosition);
 
         Node validNeighbourNode;
 
@@ -98,8 +96,10 @@ public static class Astar
             for (int j = -1; j <= 1; j++)
             {
                 //当前节点跳过
-                if (i == 0 && j == 0)
+                if ((i == 0 && j == 0)|| (i == 1 && j == 1) || (i == 1 && j == -1) || (i == -1 && j == -1) || (i == -1 && j == 1))
                     continue;
+
+                Debug.Log(currentNodeGridPosition);
                 //评估邻居节点
                 validNeighbourNode = GetValidNodeNeighbour(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, instantiateLevel);
 
@@ -152,8 +152,11 @@ public static class Astar
         // 获取邻居节点包含整个网格中的位置
         Node neighbourNode = gridNodes.GetGridNode(neighbourNodeXPosition, neighbourNodeYPosition);
 
+        //判断在该网格中该邻居节点是否为碰撞体
+        int movementPenaltyForGridPosition = instantiateLevel.aStarMovementPenalty[neighbourNodeXPosition,neighbourNodeYPosition];
+        Debug.Log("XPosition is " + neighbourNodeXPosition + " YPosition is " + neighbourNodeYPosition + " movementPenaltyForGridPosition is " + movementPenaltyForGridPosition);
         // 如果邻居节点是障碍物或者在closedNode哈希表中则返回
-        if (closedNodeHashSet.Contains(neighbourNode))
+        if (closedNodeHashSet.Contains(neighbourNode) || movementPenaltyForGridPosition == 0)
         {
             return null;
         }

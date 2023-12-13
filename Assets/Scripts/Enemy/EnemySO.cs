@@ -7,5 +7,8 @@ public class EnemySO : ScriptableObject
     [Header("ENEMY DETAIL")]
     public string enemyName;
     public GameObject prefab;
+
+    [Space(10)]
+    [Header("ENEMY MOVEMENT DETAIL")]
     public float moveSpeed;
 }

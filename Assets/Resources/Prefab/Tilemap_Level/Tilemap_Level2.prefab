@@ -68,6 +68,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
     lowerBound: {x: 0, y: 0}
     upperBound: {x: 0, y: 0}
+    levelEnemyGenerateRule: []
     spawnPositionArray: []
     targetPositionArray: []
     setupPositionArray: []
@@ -1528,8 +1529,8 @@ Tilemap:
   - first: {x: -1, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1688,8 +1689,8 @@ Tilemap:
   - first: {x: -1, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1848,8 +1849,8 @@ Tilemap:
   - first: {x: -1, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2008,8 +2009,8 @@ Tilemap:
   - first: {x: -1, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2457,14 +2458,14 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 84
+  - m_RefCount: 80
     m_Data: {fileID: 11400000, guid: 72fa604b1e4b70042845751de1eaeebc, type: 2}
-  - m_RefCount: 52
+  - m_RefCount: 56
     m_Data: {fileID: 11400000, guid: a5153ea64df5bd8428f270ebde6ea389, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 84
+  - m_RefCount: 80
     m_Data: {fileID: -2036515955, guid: 0959d7646448a1d4ea7a1d5c5f9f73a8, type: 3}
-  - m_RefCount: 52
+  - m_RefCount: 56
     m_Data: {fileID: -1329738431, guid: 0959d7646448a1d4ea7a1d5c5f9f73a8, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 136
@@ -2634,6 +2635,14 @@ CompositeCollider2D:
         Y: 70000000
       - X: 80000000
         Y: -10000000
+    - - X: 0
+        Y: 50000000
+      - X: -10000000
+        Y: 50000000
+      - X: -10000000
+        Y: 10000000
+      - X: 0
+        Y: 10000000
   m_CompositePaths:
     m_Paths:
     - - {x: 8.99997, y: -2}
@@ -2644,6 +2653,10 @@ CompositeCollider2D:
       - {x: -8, y: -0.9999706}
       - {x: -7.9999704, y: 7}
       - {x: 8, y: 6.9999704}
+    - - {x: -0.000029300001, y: 1}
+      - {x: -0.000029300001, y: 5}
+      - {x: -1, y: 4.999971}
+      - {x: -0.99997073, y: 1}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!1 &6667457290135408563
@@ -2659,7 +2672,7 @@ GameObject:
   - component: {fileID: 6667457290135408561}
   m_Layer: 0
   m_Name: Tilemap_BackGround
-  m_TagString: Tilemap_BackGroudn
+  m_TagString: Tilemap_BackGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

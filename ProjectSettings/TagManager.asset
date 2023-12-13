@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Tilemap_BackGroudn
   - Tilemap_Ground
   - Tilemap_Front
   - Tilemap_Decoration
   - Tilemap_Collision
+  - Tilemap_BackGround
+  - Tilemap_BackGroudn
   layers:
   - Default
   - TransparentFX

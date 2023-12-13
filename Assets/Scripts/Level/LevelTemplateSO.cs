@@ -43,4 +43,6 @@ public class LevelEnemyGenerateRule
 {
     public EnemySO enemySO;//敌人类型
     public int enemyCount;//敌人数量
+    public float enemySpawnInterval;
+    public float beforeEnemySpawnTime;
 }
