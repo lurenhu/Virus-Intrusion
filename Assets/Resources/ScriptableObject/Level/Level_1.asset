@@ -20,6 +20,8 @@ MonoBehaviour:
   levelEnemyGenerateRule:
   - enemySO: {fileID: 11400000, guid: cbe24e3e56f04cd40a57c6e719264891, type: 2}
     enemyCount: 3
+    enemySpawnInterval: 3
+    beforeEnemySpawnTime: 1
   spawnPositionArray:
   - {x: 2, y: 6}
   targetPositionArray:
