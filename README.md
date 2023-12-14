@@ -39,5 +39,3 @@
 - 敌人移动逻辑
 
 ![敌人移动思路](/Image_Markdown/敌人移动思路.png)
-
-GET SOME TEST
