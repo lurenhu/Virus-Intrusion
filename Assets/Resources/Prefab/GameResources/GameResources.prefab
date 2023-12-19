@@ -51,4 +51,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cbe24e3e56f04cd40a57c6e719264891, type: 2}
   enemyUnWalkableTile: {fileID: 11400000, guid: a5153ea64df5bd8428f270ebde6ea389, type: 2}
   enemyWalkableTile: {fileID: 11400000, guid: 72fa604b1e4b70042845751de1eaeebc, type: 2}
+  PlayerPlatformTile: {fileID: 11400000, guid: 42079acbb512669419bc77be31adae07, type: 2}
+  HasPlayerInPlatformTile: {fileID: 11400000, guid: 1e095058c75e33c468ae4e41698e0e9a, type: 2}
   LitMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}

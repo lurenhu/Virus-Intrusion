@@ -19,7 +19,6 @@ public class LevelTemplateSO : ScriptableObject
     public List<LevelEnemyGenerateRule> levelEnemyGenerateRule;//怪物生成规律
     public Vector2Int[] spawnPositionArray;//怪物出生点
     public Vector2Int[] targetPositionArray;//怪物目标点
-    public Vector2Int[] setupPositionArray;//可部署点
 
     
 

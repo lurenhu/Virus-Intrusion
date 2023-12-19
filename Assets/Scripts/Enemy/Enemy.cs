@@ -57,8 +57,19 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, targetPosition) < 0.5f)
             {
-                Destroy(gameObject);
+                EnemyDeath();
             }
         }
+    }
+
+    /// <summary>
+    /// 敌人死亡
+    /// </summary>
+    private void EnemyDeath()
+    { 
+        GameManager.Instance.CallEnemyDeath();
+        Debug.Log("Call Enemy Death");
+
+        Destroy(gameObject);
     }
 }

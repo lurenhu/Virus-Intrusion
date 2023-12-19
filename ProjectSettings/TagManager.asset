@@ -20,7 +20,7 @@ TagManager:
   - Map
   - Collider
   - Enemy
-  - 
+  - Player
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 1692412967
+    locked: 0
+  - name: Player
+    uniqueID: 618893071
     locked: 0

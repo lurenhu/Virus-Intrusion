@@ -30,6 +30,8 @@ public class GameResources : MonoBehaviour
     [Header("TILEBASE")]
     public TileBase enemyUnWalkableTile;
     public TileBase enemyWalkableTile;
+    public TileBase PlayerPlatformTile;
+    public TileBase HasPlayerInPlatformTile;
 
     [Space(10)]
     [Header("MATERIAL")]

@@ -99,7 +99,7 @@ public static class Astar
                 if ((i == 0 && j == 0)|| (i == 1 && j == 1) || (i == 1 && j == -1) || (i == -1 && j == -1) || (i == -1 && j == 1))
                     continue;
 
-                Debug.Log(currentNodeGridPosition);
+                //Debug.Log(currentNodeGridPosition);
                 //评估邻居节点
                 validNeighbourNode = GetValidNodeNeighbour(currentNodeGridPosition.x + i, currentNodeGridPosition.y + j, gridNodes, closedNodeHashSet, instantiateLevel);
 
@@ -154,7 +154,7 @@ public static class Astar
 
         //判断在该网格中该邻居节点是否为碰撞体
         int movementPenaltyForGridPosition = instantiateLevel.aStarMovementPenalty[neighbourNodeXPosition,neighbourNodeYPosition];
-        Debug.Log("XPosition is " + neighbourNodeXPosition + " YPosition is " + neighbourNodeYPosition + " movementPenaltyForGridPosition is " + movementPenaltyForGridPosition);
+        // Debug.Log("XPosition is " + neighbourNodeXPosition + " YPosition is " + neighbourNodeYPosition + " movementPenaltyForGridPosition is " + movementPenaltyForGridPosition);
         // 如果邻居节点是障碍物或者在closedNode哈希表中则返回
         if (closedNodeHashSet.Contains(neighbourNode) || movementPenaltyForGridPosition == 0)
         {

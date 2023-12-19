@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
 {
@@ -29,7 +25,9 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
             {
                 Grid grid =  keyValue.Value.prefab.transform.GetComponent<Grid>();
                 Vector3Int CenterGridPosition = (Vector3Int)(keyValue.Value.lowerBound + keyValue.Value.upperBound)/2;
-                Position = grid.CellToWorld(CenterGridPosition);
+                Vector3 offset = new Vector3(grid.cellSize.x/2, grid.cellSize.y/2, 0);
+
+                Position = grid.CellToWorld(CenterGridPosition) + offset;
             }
         }
         Position.z = -10;
@@ -109,7 +107,6 @@ public class LevelSpawner : SingletonMonobehaviour<LevelSpawner>
             prefab = levelTemplate.prefab,
             lowerBound = levelTemplate.lowerBound,
             upperBound = levelTemplate.upperBound,
-            setupPositionArray = levelTemplate.setupPositionArray,
             spawnPositionArray = levelTemplate.spawnPositionArray,
             targetPositionArray = levelTemplate.targetPositionArray,
             levelEnemyGenerateRule = levelTemplate.levelEnemyGenerateRule

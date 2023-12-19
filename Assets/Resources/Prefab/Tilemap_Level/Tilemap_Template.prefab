@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6667457288466378777}
   - component: {fileID: 6667457288466378776}
   - component: {fileID: 2599593897073485673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6667457288821475533}
   - component: {fileID: 6667457288821475539}
   - component: {fileID: 6667457288821475538}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap_Ground
   m_TagString: Tilemap_Ground
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 6667457288822556595}
   - component: {fileID: 6667457288822556593}
   - component: {fileID: 6667457288822556592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap_Decoration
   m_TagString: Tilemap_Decoration
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 6667457288886732870}
   - component: {fileID: 6667457288886732868}
   - component: {fileID: 6667457288886732871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap_Front
   m_TagString: Tilemap_Front
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 6667457288996588227}
   - component: {fileID: 6667457288996588226}
   - component: {fileID: 6667457288996588285}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap_Collision
   m_TagString: Tilemap_Collision
   m_Icon: {fileID: 0}
@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 6667457290135408560}
   - component: {fileID: 6667457290135408566}
   - component: {fileID: 6667457290135408561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap_BackGround
   m_TagString: Tilemap_BackGround
   m_Icon: {fileID: 0}

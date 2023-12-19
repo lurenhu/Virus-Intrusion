@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class GameManager : SingletonMonobehaviour<GameManager>
 {
+    [Space(10)]
+    [Header("UI")]
+    public int enemyTotalCount;
+    public int enemyCurrentCount;
+    public int PlayerHealth;
+
     public Transform Camera;
 
     private Level currentLevel;
@@ -17,12 +23,38 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     }
 
     private void Start() {
-        currentLevel = LevelSpawner.Instance.GenerateLevel("Tilemap_Level1");
-        Camera.position = LevelSpawner.Instance.GetLevelCenterPositionInWorld("Tilemap_Level1");
+        GenerateLevelWithPanel("Tilemap_Level1");
+        InitializeEnemyCount();
     }
 
     private void Update() {
         
+    }
+    
+    private void GenerateLevelWithPanel(string levelName)
+    {
+        UIManager.Instance.OpenPanel(UIConst.LevelPanel);
+
+        currentLevel = LevelSpawner.Instance.GenerateLevel(levelName);
+        Camera.position = LevelSpawner.Instance.GetLevelCenterPositionInWorld(levelName);
+    }
+
+    private void InitializeEnemyCount()
+    {
+        enemyTotalCount = 0;
+        foreach (LevelEnemyGenerateRule levelEnemyGenerateRule in currentLevel.levelEnemyGenerateRule)
+        {
+            enemyTotalCount += levelEnemyGenerateRule.enemyCount;
+        }
+        enemyCurrentCount = enemyTotalCount;
+
+        PlayerHealth = 3;
+    }
+
+    public void CallEnemyDeath()
+    {
+        enemyCurrentCount--;
+        PlayerHealth--;
     }
 
     /// <summary>

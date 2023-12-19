@@ -19,7 +19,7 @@ public class InstantiateLevel : MonoBehaviour
     public void Initialize(GameObject levelGameObject)
     {
         PopulateTilemapMemberVariables(levelGameObject);
-        DisableCollisionTilemapRenderer();
+        DisableTilemapRenderer();
         AddObstaclesAndPreferredPaths();
         InitializeLevelName(levelGameObject);
     }
@@ -61,9 +61,10 @@ public class InstantiateLevel : MonoBehaviour
     /// <summary>
     /// 将CollisionTilemap中的TilemapRenderer组件关闭
     /// </summary>
-    private void DisableCollisionTilemapRenderer()
+    private void DisableTilemapRenderer()
     {
         Collision_Tilemap.transform.GetComponent<TilemapRenderer>().enabled = false;
+        Front_Tilemap.transform.GetComponent<TilemapRenderer>().enabled = false;
     }
 
     /// <summary>
