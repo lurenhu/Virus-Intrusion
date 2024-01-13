@@ -27,7 +27,6 @@ public class CardItem : MonoBehaviour
     //鼠标开始拖拽
     public void OnBeginDrag(BaseEventData data)
     {
-        Debug.Log("开始拖拽");
         PointerEventData pointerEventData = data as PointerEventData;
         currentGameObject = Instantiate(playerPrefab);
         Vector2 pointScreenPosition = GameManager.Instance.Camera.GetComponent<Camera>().ScreenToWorldPoint(pointerEventData.position);
@@ -38,7 +37,6 @@ public class CardItem : MonoBehaviour
     //鼠标拖拽过程
     public void OnDrag(BaseEventData data)
     {
-        Debug.Log("拖拽中");
         if (currentGameObject == null)
         {
             return;
@@ -51,7 +49,6 @@ public class CardItem : MonoBehaviour
     //鼠标拖拽结束
     public void OnEndDrag(BaseEventData data)
     {
-        Debug.Log("拖拽结束");
         Level currentLevel = GameManager.Instance.GetCurrentLevel();
         Grid grid = currentLevel.instantiateLevel.grid;
 
@@ -62,7 +59,6 @@ public class CardItem : MonoBehaviour
         TileBase tile = currentLevel.instantiateLevel.Front_Tilemap.GetTile(pointGridPosition);
         if (tile == GameResources.Instance.PlayerPlatformTile)
         {
-            Debug.Log("拖拽到平台");
             Vector2 offset = grid.cellSize/2;
             Vector2 tilePosition = grid.CellToWorld(pointGridPosition);
             currentGameObject.transform.position = tilePosition + offset;
@@ -72,7 +68,6 @@ public class CardItem : MonoBehaviour
         }
         else
         {
-            Debug.Log("拖拽到非平台");
             Destroy(currentGameObject);
             currentGameObject = null;
         }

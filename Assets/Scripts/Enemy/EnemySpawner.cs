@@ -42,7 +42,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
             enemyCount = generateRule.enemyCount;
             enemyPrefab = enemySO.prefab;
             
-            StartCoroutine(InitializeEnemy(level,enemyCount,enemyPrefab,enemySO,generateRule.enemySpawnInterval,generateRule.beforeEnemySpawnTime));
+            StartCoroutine(InitializeEnemy(level,enemyCount,enemyPrefab,enemySO,generateRule.enemySpawnInterval,generateRule.beforeEnemySpawnTime,generateRule.enemyMaxHealth));
         }
     }
 
@@ -50,7 +50,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
     /// <summary>
     /// 将敌人实力化至世界坐标
     /// </summary>
-    private IEnumerator InitializeEnemy(Level level, int enemyCount, GameObject enemyPrefab,EnemySO enemySO, float enemySpawnInterval, float beforeEnemySpawnTime)
+    private IEnumerator InitializeEnemy(Level level, int enemyCount, GameObject enemyPrefab,EnemySO enemySO, float enemySpawnInterval, float beforeEnemySpawnTime,int enemyMaxHealth)
     {
         yield return new WaitForSeconds(beforeEnemySpawnTime);
 
@@ -66,7 +66,7 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
                 GameObject enemyGameObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity,transform);
 
                 Enemy enemyScript = enemyGameObject.GetComponent<Enemy>();
-                enemyScript.InitializeEnemy(enemySO,level);
+                enemyScript.InitializeEnemy(enemySO,level,enemyMaxHealth);
                 
                 yield return new WaitForSeconds(enemySpawnInterval);
             }

@@ -41,6 +41,7 @@ public class LevelTemplateSO : ScriptableObject
 public class LevelEnemyGenerateRule
 {
     public EnemySO enemySO;//敌人类型
+    public int enemyMaxHealth;
     public int enemyCount;//敌人数量
     public float enemySpawnInterval;
     public float beforeEnemySpawnTime;

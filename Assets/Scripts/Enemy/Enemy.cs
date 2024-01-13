@@ -14,12 +14,18 @@ public class Enemy : MonoBehaviour
     public MovementToPosition movementToPosition;
     public MovementToPositionEvent movementToPositionEvent;
     public Rigidbody2D rb2D;
+    public Health health;
 
     private void Awake() {
+        health = GetComponent<Health>();
+
         rb2D = GetComponent<Rigidbody2D>();
 
         movementToPosition = GetComponent<MovementToPosition>();
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
+    }
+
+    private void Start() {
     }
 
     private void Update() {
@@ -31,9 +37,12 @@ public class Enemy : MonoBehaviour
     /// </summary>
     /// <param name="enemySO">敌人数据</param>
     /// <param name="level">当前生成关卡的数据</param>
-    public void InitializeEnemy(EnemySO enemySO,Level level)
+    public void InitializeEnemy(EnemySO enemySO,Level level,int enemyMaxHealth)
     {
         this.enemySOData = enemySO;
+
+        health.SetMaxHealth(enemyMaxHealth);
+
         Vector2Int[] targetGridPosition = level.targetPositionArray;
         Grid grid = level.instantiateLevel.grid;
         foreach (Vector2Int target in targetGridPosition)

@@ -23,8 +23,16 @@ public class GameResources : MonoBehaviour
     public List<LevelTemplateSO> LevelList;
 
     [Space(10)]
+    [Header("PLAYER RESOURCE")]
+    public List<PlayerSO> playerList;
+
+    [Space(10)]
     [Header("ENEMY RESOURCE")]
     public List<EnemySO> enemyList;
+
+    [Space(10)]
+    [Header("AMMO")]
+    public List<AmmoSO> ammoList;
 
     [Space(10)]
     [Header("TILEBASE")]
@@ -36,4 +44,8 @@ public class GameResources : MonoBehaviour
     [Space(10)]
     [Header("MATERIAL")]
     public Material LitMaterial;
+
+
+
+
 }
