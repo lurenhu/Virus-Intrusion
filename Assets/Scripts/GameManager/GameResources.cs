@@ -31,10 +31,6 @@ public class GameResources : MonoBehaviour
     public List<EnemySO> enemyList;
 
     [Space(10)]
-    [Header("AMMO")]
-    public List<AmmoSO> ammoList;
-
-    [Space(10)]
     [Header("TILEBASE")]
     public TileBase enemyUnWalkableTile;
     public TileBase enemyWalkableTile;

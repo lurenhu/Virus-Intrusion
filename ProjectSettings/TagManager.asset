@@ -57,3 +57,6 @@ TagManager:
   - name: Player
     uniqueID: 618893071
     locked: 0
+  - name: Ammo
+    uniqueID: 1474292571
+    locked: 0

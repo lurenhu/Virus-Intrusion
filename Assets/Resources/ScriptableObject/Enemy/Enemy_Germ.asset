@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Germ
   prefab: {fileID: 110320669100175094, guid: b9fa623d3b946f249aeaa4aeb7fb8afc, type: 3}
-  moveSpeed: 2
+  moveSpeed: 0.5

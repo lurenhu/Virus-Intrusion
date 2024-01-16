@@ -1129,7 +1129,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2080762614867455103}
+  - {fileID: 8713427789296881333}
   m_Father: {fileID: 3708486993053406122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!1001 &5325139709187622830
+--- !u!1001 &3308659875695568228
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1269,12 +1269,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8132764304517530057, guid: 787139336386a5847b16a56749a2a3e2, type: 3}
       propertyPath: m_Name
-      value: CardItem
+      value: CardItem_StickMan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 787139336386a5847b16a56749a2a3e2, type: 3}
---- !u!224 &2080762614867455103 stripped
+--- !u!224 &8713427789296881333 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6126840292539821009, guid: 787139336386a5847b16a56749a2a3e2, type: 3}
-  m_PrefabInstance: {fileID: 5325139709187622830}
+  m_PrefabInstance: {fileID: 3308659875695568228}
   m_PrefabAsset: {fileID: 0}

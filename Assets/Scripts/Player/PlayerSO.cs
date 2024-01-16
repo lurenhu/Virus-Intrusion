@@ -20,5 +20,13 @@ public class PlayerSO : ScriptableObject
     [Header("PLAYER ATTACK AREA")]
     public Vector2Int raw;
     public float playerAttackAreaRadius;
+
+    [Space(10)]
+    [Header("PLAYER ATTACK RATE")]
+    public float playerAttackInterval;
+
+    [Space(10)]
+    [Header("AMMO FOR PLAYER")]
+    public AmmoSO ammoSO;
     
 }

@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: -7704064427097649297}
   - component: {fileID: 4453332621729446527}
   - component: {fileID: 5674492993840944942}
+  - component: {fileID: 3224891292354238102}
+  - component: {fileID: 7927038955037027228}
   m_Layer: 8
   m_Name: Enemy_Germ
   m_TagString: Enemy
@@ -214,6 +216,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentHealth: 0
+--- !u!114 &3224891292354238102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110320669100175094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6317731ef79a8cb4999e9b3008ddefe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7927038955037027228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110320669100175094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8585635f08e744bac86f71794d7609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1982428547072663223
 GameObject:
   m_ObjectHideFlags: 0

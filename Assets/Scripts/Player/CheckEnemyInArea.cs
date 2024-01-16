@@ -15,6 +15,10 @@ public class CheckEnemyInArea : MonoBehaviour
         {
             Debug.Log("Enemy in");
             player.enemiesInArea.Enqueue(collision.gameObject);
+            foreach (GameObject item in player.enemiesInArea)
+            {
+                Debug.Log(item.name);
+            }
         }
     }
 
@@ -23,6 +27,10 @@ public class CheckEnemyInArea : MonoBehaviour
         {
             Debug.Log("Enemy out");
             player.enemiesInArea.Dequeue();
+            foreach (GameObject item in player.enemiesInArea)
+            {
+                Debug.Log(item.name);
+            }
         }
     }
 }

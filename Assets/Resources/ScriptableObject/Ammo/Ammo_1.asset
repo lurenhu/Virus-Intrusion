@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Ammo_1
   m_EditorClassIdentifier: 
   ammoPrefab: {fileID: 4892516943751252942, guid: c4a2373c829ea214081cf06b5e1e5cda, type: 3}
-  ammoSpeed: 0
+  ammoSpeed: 1
+  ammoDamage: 1

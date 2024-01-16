@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using Unity.VisualScripting;
 
 public class CardItem : MonoBehaviour
 {
     Transform UICharacter;
 
-    public GameObject playerPrefab;
+    public string CardName;
+    private PlayerSO playerSO;
+    private GameObject playerPrefab;
     private GameObject currentGameObject;
 
     private void Awake() {
@@ -15,7 +18,23 @@ public class CardItem : MonoBehaviour
     }
 
     private void Start() {
-        FillImage();
+        foreach (PlayerSO player in GameResources.Instance.playerList)
+        {
+            if (CardName == player.playerName)
+            {
+                playerSO = player;
+                playerPrefab = player.playerPrefab;
+                Debug.Log("Find Player");
+            }
+        }
+
+        if (playerPrefab != null)
+        {
+            FillImage();
+        }else
+        {
+            Debug.Log("Not Find Player");
+        }
     }
 
     private void FillImage()
@@ -29,6 +48,12 @@ public class CardItem : MonoBehaviour
     {
         PointerEventData pointerEventData = data as PointerEventData;
         currentGameObject = Instantiate(playerPrefab);
+        
+        Player currentPlayer = currentGameObject.GetComponent<Player>();
+        currentPlayer.InitializePlayer(playerSO);
+        currentGameObject.GetComponentInChildren<CapsuleCollider2D>().enabled = false;
+        currentGameObject.GetComponentInChildren<CircleCollider2D>().enabled = false;
+
         Vector2 pointScreenPosition = GameManager.Instance.Camera.GetComponent<Camera>().ScreenToWorldPoint(pointerEventData.position);
         currentGameObject.transform.position = new Vector3(pointScreenPosition.x, pointScreenPosition.y, 0);
 
@@ -63,6 +88,9 @@ public class CardItem : MonoBehaviour
             Vector2 tilePosition = grid.CellToWorld(pointGridPosition);
             currentGameObject.transform.position = tilePosition + offset;
             currentGameObject.transform.SetParent(currentLevel.instantiateLevel.Front_Tilemap.transform);
+
+            currentGameObject.GetComponentInChildren<CapsuleCollider2D>().enabled = true;
+            currentGameObject.GetComponentInChildren<CircleCollider2D>().enabled = true;
 
             currentLevel.instantiateLevel.Front_Tilemap.SetTile(pointGridPosition, GameResources.Instance.HasPlayerInPlatformTile);
         }

@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8913750579227158170}
   - component: {fileID: 472223807952890292}
   m_Layer: 5
-  m_Name: CardItem
+  m_Name: CardItem_StickMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93154b51bf3e1a4418ec402275092c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1665467320390916816, guid: 5e3e3c9ebfeafe6438fab53af89d7e28, type: 3}
+  CardName: StickMan
 --- !u!114 &8913750579227158170
 MonoBehaviour:
   m_ObjectHideFlags: 0

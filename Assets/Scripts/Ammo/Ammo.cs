@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ammo : MonoBehaviour
@@ -24,7 +25,7 @@ public class Ammo : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             Health health = collision.GetComponent<Health>();
-            health.TakeDamage(3);
+            health.TakeDamage(ammoSO.ammoDamage);
 
             Destroy(gameObject);
         }

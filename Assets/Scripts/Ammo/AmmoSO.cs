@@ -11,4 +11,6 @@ public class AmmoSO : ScriptableObject
 
     public float ammoSpeed;
 
+    public int ammoDamage;
+
 }

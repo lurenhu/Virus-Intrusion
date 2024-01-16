@@ -30,6 +30,8 @@ public class Enemy : MonoBehaviour
 
     private void Update() {
         CheckEnemyInTarget();
+
+        
     }
 
     /// <summary>
@@ -66,19 +68,28 @@ public class Enemy : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, targetPosition) < 0.5f)
             {
-                EnemyDeath();
+                EnemyInTargetArea();
             }
         }
     }
 
     /// <summary>
-    /// 敌人死亡
+    /// 敌人进入目标点
     /// </summary>
-    private void EnemyDeath()
+    private void EnemyInTargetArea()
     { 
         GameManager.Instance.CallEnemyDeath();
-        Debug.Log("Call Enemy Death");
+        Debug.Log("Call Enemy In Area");
 
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 敌人死亡
+    /// </summary>
+    public void EnemyDestroyed()
+    {
+        DestroyedEvent destroyedEvent = GetComponent<DestroyedEvent>();
+        destroyedEvent.CallDestroyedEvent(false);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class Player : MonoBehaviour
 {
@@ -15,10 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D playerHitArea;
     public Queue<GameObject> enemiesInArea = new Queue<GameObject>();
     private Health health;
+    private float attackCoolDown = 0;
 
     private void Awake() {
         health = GetComponent<Health>();
-        playerSO = GameResources.Instance.playerList[0];
     }
 
     private void Start() {
@@ -27,7 +28,13 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
-        //HasEnemyInArea();
+        attackCoolDown += Time.deltaTime;
+
+        if (attackCoolDown >= playerSO.playerAttackInterval)
+        {
+            attackCoolDown = 0;
+            HasEnemyInArea();
+        }
     }
 
     private void HasEnemyInArea()
@@ -39,18 +46,36 @@ public class Player : MonoBehaviour
 
         targetPosition = enemiesInArea.Peek().transform;
 
-        GameObject ammo = GenerateAmmo();
+        GenerateAmmo();
 
     }
 
-    private GameObject GenerateAmmo()
+    /// <summary>
+    /// 生成子弹
+    /// </summary>
+    private void GenerateAmmo()
     {
-        GameObject ammoPrefab = GameResources.Instance.ammoList[0].ammoPrefab;
-        GameObject ammo = Instantiate(ammoPrefab, shootPosition.position, Quaternion.identity);
+        GameObject ammoGameObject = Instantiate(playerSO.ammoSO.ammoPrefab,shootPosition.position,Quaternion.identity);
 
-        Ammo ammoComponent = ammo.GetComponent<Ammo>();
-        ammoComponent.InitializeAmmo(GameResources.Instance.ammoList[0],targetPosition);
+        Ammo ammo = ammoGameObject.GetComponent<Ammo>();
+        ammo.InitializeAmmo(playerSO.ammoSO,targetPosition);
+    }
 
-        return ammo;
+    /// <summary>
+    /// 导入干员数据
+    /// </summary>
+    /// <param name="playerSO"></param>
+    public void InitializePlayer(PlayerSO playerSO)
+    {
+        this.playerSO = playerSO;
+    }
+
+    /// <summary>
+    /// 干员阵亡
+    /// </summary>
+    public void PlayerDestroyed()
+    {
+        DestroyedEvent destroyedEvent = GetComponent<DestroyedEvent>();
+        destroyedEvent.CallDestroyedEvent(true);
     }
 }

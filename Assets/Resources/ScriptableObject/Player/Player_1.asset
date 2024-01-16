@@ -18,3 +18,5 @@ MonoBehaviour:
   playerAttack: 1
   raw: {x: 0, y: 0}
   playerAttackAreaRadius: 1.5
+  playerAttackInterval: 2
+  ammoSO: {fileID: 11400000, guid: 69ef026916ea8694abc165c8894a3c62, type: 2}
