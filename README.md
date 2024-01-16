@@ -37,6 +37,33 @@
 ![敌人生成思路](/Image_Markdown/敌人生成思路.png)
 
 - 敌人移动逻辑
+    > 这里采用上面所封装好了的AStar算法。
 
 ![敌人移动思路](/Image_Markdown/敌人移动思路.png)
+
+## UI系统
+
+- 该模块采用一个UI框架，包含**UIManager**和**BasePanel**两部分来管理整个UI部分。
+- 其中**LevelPanel**继承自**BasePanel**，**CardItem**则是**LevelPanel**的中的一个干员选择模块。
+
+![UI框架](/Image_Markdown/UI框架的使用.png)
+
+## 健康系统
+
+- 该模块包含一个摧毁事件**DestroyEvent**，一个健康处理事件**HealthEvent**,用于广播并调用所订阅的方法。
+
+![健康模块](/Image_Markdown/健康模块.png)
+
+## 干员放置模块
+
+- 干员的生成是通过**CardItem**来实现的，其中运用到了**Event Trigger**组件，并在**CardItem**类中实现了鼠标点击，鼠标拖拽，鼠标释放三个事件发生的方法，从而实例化干员对象。
+
+![干员放置并实例](/Image_Markdown/干员放置并实例.png)
+
+## 子弹生成模块
+
+- 子弹首先通过**Player**检测周围的**Enemy**，在检测到有**Enemy**的时候生成子弹，这里运用队列**Queue**能很好的实现让子弹优先追踪最接近目标点的**Enemy**。
+- 子弹类包含子弹的移动速度以及需要到达的目标点，继承自**MonoBehavior**类，实现子弹追踪至敌人的方法
+
+![子弹追踪逻辑](/Image_Markdown/子弹追踪逻辑.png)
 
